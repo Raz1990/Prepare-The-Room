@@ -9,6 +9,8 @@ public class SlidingWindow : MonoBehaviour, IInteractable
     [Header("UI Prompt Colors")]
     [SerializeField] private Color inputColor = new Color(1f, 0.843f, 0f); // Gold (#FFD700)
     [SerializeField] private Color actionColor = new Color(0.435f, 0.875f, 0.455f); // Brighter Green (#6FDF74)
+    [SerializeField] private Color objectColor = new Color(0.705f, 1f, 1f); // Bright teal (#B4FFFF)
+
 
     [Header("Animation")]
     [SerializeField] private Animator windowAnimator;
@@ -19,6 +21,7 @@ public class SlidingWindow : MonoBehaviour, IInteractable
     private bool isClosed = false;
     private string inputHex;
     private string actionHex;
+    private string objectHex;
     private static readonly int CloseTriggerHash = Animator.StringToHash("Close");
 
     public float InteractionRange => range;
@@ -35,7 +38,7 @@ public class SlidingWindow : MonoBehaviour, IInteractable
     {
         if (isClosed) return string.Empty;
         // Rich text coloring: Gold for LMB, Green for action
-        return $"Press <color=#{inputHex}><b>[LMB]</b></color> to <color=#{actionHex}><b>Close the Window</b></color>";
+        return $"Press <color=#{inputHex}><b>[LMB]</b></color> to <color=#{actionHex}><b>Close</b></color> the <color=#{objectHex}><b>Window</b></color>";
     }
 
     public bool CanInteract(ItemType heldItem)
@@ -56,6 +59,7 @@ public class SlidingWindow : MonoBehaviour, IInteractable
         // Converts Unity Color to 6-digit RGB Hex string for TextMeshPro rich text
         inputHex = ColorUtility.ToHtmlStringRGB(inputColor);
         actionHex = ColorUtility.ToHtmlStringRGB(actionColor);
+        objectHex = ColorUtility.ToHtmlStringRGB(objectColor);
     }
 
     private void ExecuteCloseWindow()

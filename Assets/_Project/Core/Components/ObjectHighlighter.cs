@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 
 // Requires Quick Outline's component on the same GameObject
 [RequireComponent(typeof(Outline))]

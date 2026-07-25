@@ -5827,6 +5827,7 @@ MonoBehaviour:
   requiredItem: 0
   inputColor: {r: 1, g: 0.843, b: 0, a: 1}
   actionColor: {r: 0.43220434, g: 0.8726414, b: 0.45152178, a: 1}
+  objectColor: {r: 0.7, g: 1, b: 1, a: 1}
   windowAnimator: {fileID: 1347206083}
   closeSFX: {fileID: 8300000, guid: 8649490c42cf53e449691e1f8057add7, type: 3}
 --- !u!114 &1347206085

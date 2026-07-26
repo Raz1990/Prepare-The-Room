@@ -6,6 +6,8 @@ public class PlayerRaycaster : MonoBehaviour
     [SerializeField] private Camera playerCamera;
     [SerializeField] private LayerMask interactableLayer;
     [SerializeField] private float rayDistance = 5f;
+    [Tooltip("The radius around the raycast hit point to check for nearby interactable objects.")]
+    [SerializeField] private float interactionRadius = 0.2f;
 
     [Header("Item Holding")]
     [SerializeField] private Transform handSocket;
@@ -35,7 +37,7 @@ public class PlayerRaycaster : MonoBehaviour
         // Viewport coordinates are normalized (0,0 is bottom-left, 1,1 is top-right).
         Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
 
-        if (Physics.Raycast(ray, out RaycastHit hit, rayDistance, interactableLayer))
+        if (GetInteractionHit(ray, out RaycastHit hit))
         {
             float hitDistance = hit.distance;
 
@@ -77,6 +79,28 @@ public class PlayerRaycaster : MonoBehaviour
         // Catch-all: Runs only if raycast misses entirely, hits non-interactable geometry, 
         // or target fails range/CanInteract checks.
         ClearAllTargets();
+    }
+
+    /// <summary>
+    /// Evaluates precision first (Raycast), then falls back to leeway radius (SphereCast).
+    /// </summary>
+    private bool GetInteractionHit(Ray ray, out RaycastHit hit)
+    {
+        // 1. Exact Pinpoint Raycast (Direct crosshair aim)
+        if (Physics.Raycast(ray, out hit, rayDistance, interactableLayer))
+        {
+            return true;
+        }
+
+        // 2. Thick SphereCast Fallback (Gives crosshair leeway near small objects)
+        if (interactionRadius > 0f && Physics.SphereCast(ray, interactionRadius, out hit, rayDistance, interactableLayer))
+        {
+            return true;
+        }
+
+        hit = default;
+
+        return false;
     }
 
     // Called by PlayerInteractionInput on LMB press

@@ -19,8 +19,28 @@ public class PlayerInteractionInput : MonoBehaviour
         }
     }
 
+    // Called automatically by Unity PlayerInput component on "Pickup" / "SecondaryInteract" action (E key)
+    public void OnPickup(InputValue value)
+    {
+        if (value.isPressed)
+        {
+            ExecutePickup();
+        }
+    }
+
     private void ExecuteInteraction()
     {
-        raycaster.TryInteract();
+        if (raycaster != null)
+        {
+            raycaster.TryInteract();
+        }
+    }
+
+    private void ExecutePickup()
+    {
+        if (raycaster != null)
+        {
+            raycaster.TryPickupOrPlace();
+        }
     }
 }

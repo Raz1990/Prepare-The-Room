@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class InteractionUIPrompt : MonoBehaviour
@@ -22,16 +23,34 @@ public class InteractionUIPrompt : MonoBehaviour
     {
         if (raycaster == null || promptPanel == null || promptText == null) return;
 
-        string currentPrompt = raycaster.GetCurrentPromptText();
+        IPromptable target = raycaster.GetCurrentPromptable();
 
-        if (string.IsNullOrEmpty(currentPrompt))
+        if (target == null)
         {
-            promptPanel.SetActive(false);
+            TogglePanelDisplay(false);
+            return;
         }
-        else
+
+        HandleTextDisplay(target);
+    }
+
+    private void HandleTextDisplay(IPromptable target)
+    {
+        string text = target.GetPromptText();
+
+        if (string.IsNullOrEmpty(text))
         {
-            promptText.text = currentPrompt;
-            promptPanel.SetActive(true);
+            TogglePanelDisplay(false);
+            return;
         }
+
+        TogglePanelDisplay(true);
+        promptText.text = text;
+    }
+
+    private void TogglePanelDisplay(bool toggle)
+    {
+        if (promptPanel.activeSelf == toggle) return;
+        promptPanel.SetActive(toggle);
     }
 }

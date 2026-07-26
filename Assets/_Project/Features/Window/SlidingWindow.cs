@@ -1,3 +1,4 @@
+using NUnit.Framework.Interfaces;
 using UnityEngine;
 
 public class SlidingWindow : MonoBehaviour, IInteractable
@@ -7,9 +8,9 @@ public class SlidingWindow : MonoBehaviour, IInteractable
     [SerializeField] private ItemType requiredItem = ItemType.None;
 
     [Header("UI Prompt Colors")]
-    [SerializeField] private Color inputColor = new Color(1f, 0.843f, 0f); // Gold (#FFD700)
-    [SerializeField] private Color actionColor = new Color(0.435f, 0.875f, 0.455f); // Brighter Green (#6FDF74)
-    [SerializeField] private Color objectColor = new Color(0.705f, 1f, 1f); // Bright teal (#B4FFFF)
+    [SerializeField] private Color inputColor = ColorsCenter.Gold;
+    [SerializeField] private Color actionColor = ColorsCenter.LightGreen;
+    [SerializeField] private Color objectColor = ColorsCenter.Teal;
 
 
     [Header("Animation")]
@@ -19,9 +20,6 @@ public class SlidingWindow : MonoBehaviour, IInteractable
     [SerializeField] private AudioClip closeSFX;
 
     private bool isClosed = false;
-    private string inputHex;
-    private string actionHex;
-    private string objectHex;
     private static readonly int CloseTriggerHash = Animator.StringToHash("Close");
 
     public float InteractionRange => range;
@@ -30,36 +28,29 @@ public class SlidingWindow : MonoBehaviour, IInteractable
     void Awake()
     {
         if (windowAnimator == null) windowAnimator = GetComponent<Animator>();
-
-        ConvertColorToHexString();
     }
 
     public string GetPromptText()
     {
         if (isClosed) return string.Empty;
-        // Rich text coloring: Gold for LMB, Green for action
-        return $"Press <color=#{inputHex}><b>[LMB]</b></color> to <color=#{actionHex}><b>Close</b></color> the <color=#{objectHex}><b>Window</b></color>";
+
+        return PromptFormatter.BuildPrompt("LMB", "Close", "Window", inputColor, actionColor, objectColor);
     }
 
-    public bool CanInteract(ItemType heldItem)
+    public Sprite GetPromptIcon()
+    {
+        return null; // No icon needed for plain interactables
+    }
+
+    public bool CanInteract(ItemType _)
     {
         // One-way interaction: can only be interacted with if not already closed
         return !isClosed;
     }
 
-    public void Interact(ItemType heldItem)
+    public void Interact(ItemType _)
     {
-        if (!CanInteract(heldItem)) return;
-
         ExecuteCloseWindow();
-    }
-
-    private void ConvertColorToHexString()
-    {
-        // Converts Unity Color to 6-digit RGB Hex string for TextMeshPro rich text
-        inputHex = ColorUtility.ToHtmlStringRGB(inputColor);
-        actionHex = ColorUtility.ToHtmlStringRGB(actionColor);
-        objectHex = ColorUtility.ToHtmlStringRGB(objectColor);
     }
 
     private void ExecuteCloseWindow()

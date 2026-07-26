@@ -7,12 +7,21 @@ public class PlayerRaycaster : MonoBehaviour
     [SerializeField] private LayerMask interactableLayer;
     [SerializeField] private float rayDistance = 5f;
 
+    [Header("Item Holding")]
+    [SerializeField] private Transform handSocket;
+
     private IInteractable currentInteractable;
+    private IPickupable currentPickupable;
+    private IPlacementZone currentPlacementZone;
     private IHighlightable currentHighlightable;
+    private IPromptable currentPromptable;
 
     void Awake()
     {
-        if (playerCamera == null) playerCamera = Camera.main;
+        if (playerCamera == null)
+        {
+            playerCamera = Camera.main;
+        }
     }
 
     void Update()
@@ -20,9 +29,62 @@ public class PlayerRaycaster : MonoBehaviour
         PerformRaycast();
     }
 
+    private void PerformRaycast()
+    {
+        // Viewport (0.5, 0.5) targets the center of the screen.
+        // Viewport coordinates are normalized (0,0 is bottom-left, 1,1 is top-right).
+        Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+
+        if (Physics.Raycast(ray, out RaycastHit hit, rayDistance, interactableLayer))
+        {
+            ItemType heldItem = GetCurrentlyHeldItem();
+            float hitDistance = hit.distance;
+
+            // TryGetComponent checks for components without allocating garbage memory 
+            // compared to standard GetComponent calls which cause GC spikes when missing.
+
+            // 1. World Object Interaction Target (e.g., Sliding Window)
+            if (hit.collider.TryGetComponent(out IInteractable interactable))
+            {
+                if (HandleInteractable(hit, hitDistance, interactable, heldItem))
+                {
+                    // Guard Clause: return; exits immediately when a valid target is locked.
+                    // This prevents reaching ClearAllTargets() at the bottom.
+                    return;
+                }
+            }
+
+            // 2. Item Pickup Target (e.g., Book on desk)
+            if (hit.collider.TryGetComponent(out IPickupable pickupable))
+            {
+                if (HandlePickupable(hit, hitDistance, pickupable, heldItem))
+                {
+                    return;
+                }
+            }
+
+            // 3. Item Placement Target (e.g., Bookshelf slot)
+            if (hit.collider.TryGetComponent(out IPlacementZone placementZone))
+            {
+                if (HandlePlaceable(hit, hitDistance, placementZone, heldItem))
+                {
+                    return;
+                }
+            }
+        }
+
+        // Catch-all: Runs only if raycast misses entirely, hits non-interactable geometry, 
+        // or target fails range/CanInteract checks.
+        ClearAllTargets();
+    }
+
+    // Called by PlayerInteractionInput on LMB press
     public void TryInteract()
     {
-        if (currentInteractable == null) return;
+        if (currentInteractable == null)
+        {
+            return;
+        }
 
         ItemType heldItem = GetCurrentlyHeldItem();
 
@@ -36,58 +98,152 @@ public class PlayerRaycaster : MonoBehaviour
         }
     }
 
-    public string GetCurrentPromptText()
+    // Called by PlayerInteractionInput on E press
+    public void TryPickupOrPlace()
     {
-        if (currentInteractable == null) return string.Empty;
-        return currentInteractable.GetPromptText();
+        ItemType heldItem = GetCurrentlyHeldItem();
+
+        // 1. Handle Pickup
+        if (currentPickupable != null)
+        {
+            PickUp(heldItem);
+            return;
+        }
+
+        // 2. Handle Placement
+        if (currentPlacementZone != null)
+        {
+            PlaceItem(heldItem);
+        }
+    }
+
+    private void PickUp(ItemType heldItem)
+    {
+        if (currentPickupable.CanPickup(heldItem))
+        {
+            currentPickupable.Pickup(handSocket);
+        }
+    }
+
+    private void PlaceItem(ItemType heldItem)
+    {
+        if (currentPlacementZone.CanPlace(heldItem))
+        {
+            if (handSocket != null && handSocket.childCount > 0)
+            {
+                // Retrieve the actual item GameObject sitting in the hand socket
+                GameObject heldItemObject = handSocket.GetChild(0).gameObject;
+
+                currentPlacementZone.PlaceItem(heldItemObject, HandlePlacementComplete);
+            }
+        }
+    }
+
+    private void HandlePlacementComplete()
+    {
+        if (ItemManager.Instance != null && ItemManager.Instance.CurrentHeldItemData != null)
+        {
+            GameEvents.TriggerItemPlaced(ItemManager.Instance.CurrentHeldItemData);
+        }
+    }
+
+    public IPromptable GetCurrentPromptable()
+    {
+        return currentPromptable;
     }
 
     private ItemType GetCurrentlyHeldItem()
     {
-        return ItemManager.Instance != null ? ItemManager.Instance.CurrentHeldItem : ItemType.None;
-    }
-
-    private void PerformRaycast()
-    {
-        // Viewport (0.5, 0.5) targets the center of the screen
-        Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-
-        if (Physics.Raycast(ray, out RaycastHit hit, rayDistance, interactableLayer))
+        // Safe check against ItemManager instance and held ScriptableObject to retrieve itemID without null exceptions
+        if (ItemManager.Instance != null && ItemManager.Instance.CurrentHeldItemData != null)
         {
-            // TryGetComponent avoids garbage allocation compared to standard GetComponent checks
-            if (hit.collider.TryGetComponent(out IInteractable interactable))
-            {
-                // Must be in range AND currently interactable
-                if (hit.distance <= interactable.InteractionRange && interactable.CanInteract(GetCurrentlyHeldItem()))
-                {
-                    currentInteractable = interactable;
-
-                    // Check for highlight capability
-                    if (hit.collider.TryGetComponent(out IHighlightable highlightable))
-                    {
-                        SetCurrentHighlightable(highlightable);
-                    }
-                    else
-                    {
-                        ClearCurrentHighlightable();
-                    }
-
-                    return; // Valid interactable target found in range; skip clearing
-                }
-            }
+            return ItemManager.Instance.CurrentHeldItemData.itemID;
         }
 
-        ClearCurrentTarget();
+        return ItemType.None;
     }
 
-    private void SetCurrentHighlightable(IHighlightable newHighlightable)
+    private bool HandleInteractable(RaycastHit hit, float hitDistance, IInteractable interactable, ItemType heldItem)
     {
-        if (currentHighlightable == newHighlightable) return;
+        if (hitDistance <= interactable.InteractionRange && interactable.CanInteract(heldItem))
+        {
+            hit.collider.TryGetComponent(out IHighlightable highlightable);
+            SetInteractableTarget(interactable, highlightable);
+            return true;
+        }
+
+        return false;
+    }
+
+    private bool HandlePickupable(RaycastHit hit, float hitDistance, IPickupable pickupable, ItemType heldItem)
+    {
+        if (hitDistance <= pickupable.InteractionRange && pickupable.CanPickup(heldItem))
+        {
+            hit.collider.TryGetComponent(out IHighlightable highlightable);
+            SetPickupableTarget(pickupable, highlightable);
+            return true;
+        }
+
+        return false;
+    }
+
+    private bool HandlePlaceable(RaycastHit hit, float hitDistance, IPlacementZone placementZone, ItemType heldItem)
+    {
+        if (hitDistance <= placementZone.InteractionRange && placementZone.CanPlace(heldItem))
+        {
+            hit.collider.TryGetComponent(out IHighlightable highlightable);
+            SetPlacementZoneTarget(placementZone, highlightable);
+            return true;
+        }
+
+        return false;
+    }
+
+    private void SetInteractableTarget(IInteractable interactable, IHighlightable highlightable)
+    {
+        currentInteractable = interactable;
+        currentPickupable = null;
+        currentPlacementZone = null;
+        currentPromptable = interactable;
+
+        UpdateHighlightState(highlightable);
+    }
+
+    private void SetPickupableTarget(IPickupable pickupable, IHighlightable highlightable)
+    {
+        currentInteractable = null;
+        currentPickupable = pickupable;
+        currentPlacementZone = null;
+        currentPromptable = pickupable;
+
+        UpdateHighlightState(highlightable);
+    }
+
+    private void SetPlacementZoneTarget(IPlacementZone placementZone, IHighlightable highlightable)
+    {
+        currentInteractable = null;
+        currentPickupable = null;
+        currentPlacementZone = placementZone;
+        currentPromptable = placementZone;
+
+        UpdateHighlightState(highlightable);
+    }
+
+    private void UpdateHighlightState(IHighlightable newHighlightable)
+    {
+        // Avoid unhighlighting and re-highlighting if looking at the same object across frames
+        if (currentHighlightable == newHighlightable)
+        {
+            return;
+        }
 
         ClearCurrentHighlightable();
 
-        currentHighlightable = newHighlightable;
-        currentHighlightable.Highlight();
+        if (newHighlightable != null)
+        {
+            currentHighlightable = newHighlightable;
+            currentHighlightable.Highlight();
+        }
     }
 
     private void ClearCurrentHighlightable()
@@ -99,9 +255,13 @@ public class PlayerRaycaster : MonoBehaviour
         }
     }
 
-    private void ClearCurrentTarget()
+    private void ClearAllTargets()
     {
         currentInteractable = null;
+        currentPickupable = null;
+        currentPlacementZone = null;
+        currentPromptable = null;
+
         ClearCurrentHighlightable();
     }
 }

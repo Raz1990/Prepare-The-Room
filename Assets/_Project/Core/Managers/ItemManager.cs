@@ -4,11 +4,23 @@ public class ItemManager : MonoBehaviour
 {
     public static ItemManager Instance { get; private set; }
 
-    public ItemType CurrentHeldItem { get; private set; } = ItemType.None;
+    public ItemSO CurrentHeldItemData { get; private set; }
 
     void Awake()
     {
         EnsureSingleInstance();
+    }
+
+    void OnEnable()
+    {
+        GameEvents.OnItemPickedUp += HandleItemPickedUp;
+        GameEvents.OnItemPlaced += HandleItemPlaced;
+    }
+
+    void OnDisable()
+    {
+        GameEvents.OnItemPickedUp -= HandleItemPickedUp;
+        GameEvents.OnItemPlaced -= HandleItemPlaced;
     }
 
     private void EnsureSingleInstance()
@@ -22,8 +34,16 @@ public class ItemManager : MonoBehaviour
         Instance = this;
     }
 
-    public void SetHeldItem(ItemType newItem)
+    private void HandleItemPickedUp(ItemSO item)
     {
-        CurrentHeldItem = newItem;
+        if (item != null)
+        {
+            CurrentHeldItemData = item;
+        }
+    }
+
+    private void HandleItemPlaced(ItemSO item)
+    {
+        CurrentHeldItemData = null;
     }
 }

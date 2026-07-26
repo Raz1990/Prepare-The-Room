@@ -45,6 +45,7 @@ public class InteractionUIPrompt : MonoBehaviour
         }
 
         TogglePanelDisplay(true);
+        promptText.spriteAsset = target.SpriteAsset;
         promptText.text = text;
     }
 

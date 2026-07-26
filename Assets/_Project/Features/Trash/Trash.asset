@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ef3578856f60e7041a51c1c711043fbf, type: 3}
-  m_Name: Book
+  m_Name: Trash
   m_EditorClassIdentifier: Assembly-CSharp::ItemSO
-  itemID: 1
-  itemName: Book
-  icon: {fileID: 21300000, guid: 887b0232b3da3d54fb913a59b842654d, type: 3}
-  spriteAsset: {fileID: 11400000, guid: f4bcd6066283cda4788dce7f9e773fe7, type: 2}
-  pickupSound: {fileID: 8300000, guid: d5b01fcd18fc93c459c3e1fbf89d44d3, type: 3}
-  placementSound: {fileID: 8300000, guid: 858df34b78c00324d86623cc4c75a432, type: 3}
-  holdPositionOffset: {x: 0.2, y: 0, z: 0.2}
+  itemID: 2
+  itemName: Soda Can
+  icon: {fileID: 21300000, guid: 72ceb5a6ec8b0b24c895db1e975173d1, type: 3}
+  spriteAsset: {fileID: 11400000, guid: ce85353df30ac0647b668715e37fe092, type: 2}
+  pickupSound: {fileID: 8300000, guid: 2aaf4adba63b53749974de5ce36c488b, type: 3}
+  placementSound: {fileID: 8300000, guid: 778e12c65fa973c4eb687abb20d2cba6, type: 3}
+  holdPositionOffset: {x: 0.2, y: 0.2, z: 0.2}
   holdRotationOffset: {x: 0, y: 0, z: 0}

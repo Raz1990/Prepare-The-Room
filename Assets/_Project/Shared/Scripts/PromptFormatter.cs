@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public static class PromptFormatter
@@ -21,7 +22,7 @@ public static class PromptFormatter
         string itemHex = ColorsCenter.ConvertColorToHexString(itemColor ?? ColorsCenter.Teal);
 
         // 2. Build sprite tag only if an icon is supplied
-        string spriteTag = icon != null ? $" <sprite name=\"{icon.name}\"> " : string.Empty;
+        string spriteTag = icon != null ? $"<sprite name=\"{icon.name}\"> " : string.Empty;
 
         // 3. Assemble the single, unified string format
         return $"Press <color=#{inputHex}><b>[{inputKey}]</b></color> to <color=#{actionHex}><b>{action}</b></color> the {spriteTag}<color=#{itemHex}><b>{objectName}</b></color>";

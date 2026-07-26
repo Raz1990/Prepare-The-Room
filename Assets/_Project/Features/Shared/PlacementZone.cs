@@ -1,6 +1,7 @@
 using NUnit.Framework.Interfaces;
 using System;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class PlacementZone : MonoBehaviour, IPlacementZone, IHighlightable
@@ -26,6 +27,8 @@ public class PlacementZone : MonoBehaviour, IPlacementZone, IHighlightable
 
     private bool isFilled = false;
     private bool isBeaconActive = false;
+
+    public TMP_SpriteAsset SpriteAsset => targetItemData != null ? targetItemData.spriteAsset : null;
 
     public float InteractionRange
     {

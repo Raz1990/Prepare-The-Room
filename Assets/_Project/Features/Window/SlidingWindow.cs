@@ -1,4 +1,5 @@
 using NUnit.Framework.Interfaces;
+using TMPro;
 using UnityEngine;
 
 public class SlidingWindow : MonoBehaviour, IInteractable
@@ -22,6 +23,7 @@ public class SlidingWindow : MonoBehaviour, IInteractable
     private bool isClosed = false;
     private static readonly int CloseTriggerHash = Animator.StringToHash("Close");
 
+    public TMP_SpriteAsset SpriteAsset => null;
     public float InteractionRange => range;
     public ItemType RequiredItem => requiredItem;
 

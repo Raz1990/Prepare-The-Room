@@ -1,7 +1,8 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
-public class BookItem : MonoBehaviour, IPickupable, IHighlightable
+public class PickupItem : MonoBehaviour, IPickupable, IHighlightable
 {
     [Header("Item Data")]
     [SerializeField] private ItemSO itemData;
@@ -17,6 +18,8 @@ public class BookItem : MonoBehaviour, IPickupable, IHighlightable
     [SerializeField] private Outline outline;
 
     private bool isPickedUp = false;
+
+    public TMP_SpriteAsset SpriteAsset => itemData != null ? itemData.spriteAsset : null;
 
     public float InteractionRange
     {
@@ -124,7 +127,17 @@ public class BookItem : MonoBehaviour, IPickupable, IHighlightable
         }
 
         transform.SetParent(handSocket);
-        transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+
+        if (itemData != null)
+        {
+            // Apply per-item offsets
+            transform.SetLocalPositionAndRotation(itemData.holdPositionOffset, Quaternion.Euler(itemData.holdRotationOffset));
+        }
+        else
+        {
+            // Default zero alignment if no SO exists
+            transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
+        }
     }
 
     public void Highlight()

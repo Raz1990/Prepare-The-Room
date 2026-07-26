@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 84a92b25f83d49b9bc132d206b370281, type: 3}
-  m_Name: book icon
+  m_Name: book_SpriteAsset
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TMP_SpriteAsset
   m_Version: 1.1.0
   m_FaceInfo:
@@ -48,9 +48,9 @@ MonoBehaviour:
     m_Metrics:
       m_Width: 323
       m_Height: 512
-      m_HorizontalBearingX: -100
+      m_HorizontalBearingX: -70
       m_HorizontalBearingY: 400
-      m_HorizontalAdvance: 323
+      m_HorizontalAdvance: 200
     m_GlyphRect:
       m_X: 0
       m_Y: 0

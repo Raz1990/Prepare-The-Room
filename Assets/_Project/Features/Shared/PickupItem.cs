@@ -18,6 +18,8 @@ public class PickupItem : MonoBehaviour, IPickupable, IHighlightable
     [SerializeField] private Outline outline;
 
     private bool isPickedUp = false;
+    private Animator anim;
+    private int originalLayer;
 
     public TMP_SpriteAsset SpriteAsset => itemData != null ? itemData.spriteAsset : null;
 
@@ -48,6 +50,23 @@ public class PickupItem : MonoBehaviour, IPickupable, IHighlightable
         {
             outline = GetComponent<Outline>();
         }
+
+        anim = GetComponentInChildren<Animator>();
+
+        // Cache the original scene layer (e.g., Interactable)
+        originalLayer = gameObject.layer;
+    }
+
+    void OnEnable()
+    {
+        GameEvents.OnItemPickedUp += HandleItemPickedUp;
+        GameEvents.OnItemPlaced += HandleItemPlaced;
+    }
+
+    void OnDisable()
+    {
+        GameEvents.OnItemPickedUp -= HandleItemPickedUp;
+        GameEvents.OnItemPlaced -= HandleItemPlaced;
     }
 
     public string GetPromptText()
@@ -97,6 +116,13 @@ public class PickupItem : MonoBehaviour, IPickupable, IHighlightable
         }
 
         GameEvents.TriggerItemPickedUp(itemData);
+
+        // Turn off the Animator so it won't override localPosition
+        if (anim != null)
+        {
+            anim.enabled = false;
+        }
+
         StartCoroutine(AnimateToHand(handSocket));
     }
 
@@ -138,6 +164,35 @@ public class PickupItem : MonoBehaviour, IPickupable, IHighlightable
             // Default zero alignment if no SO exists
             transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
         }
+    }
+
+    private void SetLayerRecursively(GameObject obj, int layer)
+    {
+        obj.layer = layer;
+        foreach (Transform child in obj.transform)
+        {
+            SetLayerRecursively(child.gameObject, layer);
+        }
+    }
+
+    private void HandleItemPickedUp(ItemSO pickedUpItem)
+    {
+        // Guard clause: only run if THIS instance matches the picked-up item
+        if (pickedUpItem == null || pickedUpItem != itemData) return;
+
+        int heldItemLayer = LayerMask.NameToLayer("HeldItem");
+        if (heldItemLayer != -1)
+        {
+            SetLayerRecursively(gameObject, heldItemLayer);
+        }
+    }
+
+    private void HandleItemPlaced(ItemSO placedItem)
+    {
+        // Guard clause: only run if THIS instance matches the placed item
+        if (placedItem == null || placedItem != itemData) return;
+
+        SetLayerRecursively(gameObject, originalLayer);
     }
 
     public void Highlight()

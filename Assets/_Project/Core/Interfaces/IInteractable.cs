@@ -1,6 +1,6 @@
 public interface IInteractable : IPromptable, IRangeable
 {
     ItemType RequiredItem { get; }
-    bool CanInteract(ItemType heldItem);
+    bool CanInteract();
     void Interact(ItemType heldItem);
 }

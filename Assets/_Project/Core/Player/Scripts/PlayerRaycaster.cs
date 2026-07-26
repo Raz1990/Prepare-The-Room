@@ -37,7 +37,6 @@ public class PlayerRaycaster : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit, rayDistance, interactableLayer))
         {
-            ItemType heldItem = GetCurrentlyHeldItem();
             float hitDistance = hit.distance;
 
             // TryGetComponent checks for components without allocating garbage memory 
@@ -46,13 +45,15 @@ public class PlayerRaycaster : MonoBehaviour
             // 1. World Object Interaction Target (e.g., Sliding Window)
             if (hit.collider.TryGetComponent(out IInteractable interactable))
             {
-                if (HandleInteractable(hit, hitDistance, interactable, heldItem))
+                if (HandleInteractable(hit, hitDistance, interactable))
                 {
                     // Guard Clause: return; exits immediately when a valid target is locked.
                     // This prevents reaching ClearAllTargets() at the bottom.
                     return;
                 }
             }
+
+            ItemType heldItem = GetCurrentlyHeldItem();
 
             // 2. Item Pickup Target (e.g., Book on desk)
             if (hit.collider.TryGetComponent(out IPickupable pickupable))
@@ -86,10 +87,9 @@ public class PlayerRaycaster : MonoBehaviour
             return;
         }
 
-        ItemType heldItem = GetCurrentlyHeldItem();
-
-        if (currentInteractable.CanInteract(heldItem))
+        if (currentInteractable.CanInteract())
         {
+            ItemType heldItem = GetCurrentlyHeldItem();
             currentInteractable.Interact(heldItem);
         }
         else
@@ -163,9 +163,9 @@ public class PlayerRaycaster : MonoBehaviour
         return ItemType.None;
     }
 
-    private bool HandleInteractable(RaycastHit hit, float hitDistance, IInteractable interactable, ItemType heldItem)
+    private bool HandleInteractable(RaycastHit hit, float hitDistance, IInteractable interactable)
     {
-        if (hitDistance <= interactable.InteractionRange && interactable.CanInteract(heldItem))
+        if (hitDistance <= interactable.InteractionRange && interactable.CanInteract())
         {
             hit.collider.TryGetComponent(out IHighlightable highlightable);
             SetInteractableTarget(interactable, highlightable);

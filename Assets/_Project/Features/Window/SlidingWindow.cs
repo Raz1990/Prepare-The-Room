@@ -13,7 +13,6 @@ public class SlidingWindow : MonoBehaviour, IInteractable
     [SerializeField] private Color actionColor = ColorsCenter.LightGreen;
     [SerializeField] private Color objectColor = ColorsCenter.Teal;
 
-
     [Header("Animation")]
     [SerializeField] private Animator windowAnimator;
 
@@ -39,7 +38,7 @@ public class SlidingWindow : MonoBehaviour, IInteractable
         return PromptFormatter.BuildPrompt("LMB", "Close", "Window", inputColor, actionColor, objectColor);
     }
 
-    public bool CanInteract(ItemType _)
+    public bool CanInteract()
     {
         // One-way interaction: can only be interacted with if not already closed
         return !isClosed;
@@ -68,6 +67,6 @@ public class SlidingWindow : MonoBehaviour, IInteractable
     // Callback method invoked by Unity Animation Event on the last keyframe of the closing animation
     public void OnWindowClosedAnimationEnd()
     {
-        GameEvents.TriggerTaskCompleted();
+        GameEvents.TriggerTaskCompleted(TaskID.CloseWindow);
     }
 }

@@ -1,4 +1,3 @@
-using NUnit.Framework.Interfaces;
 using System;
 using System.Collections;
 using TMPro;
@@ -10,6 +9,10 @@ public class PlacementZone : MonoBehaviour, IPlacementZone, IHighlightable
     [SerializeField] private ItemSO targetItemData;
     [SerializeField] private float range = 2.0f;
     [SerializeField] private Transform targetPlacementTransform;
+
+    [Header("Activation Settings")]
+    [SerializeField] private TaskID prerequisiteTaskID = TaskID.None; // Task required to UNLOCK this zone
+    [SerializeField] private TaskID completedTaskID = TaskID.None; // Task broadcasted when item is PLACED here
 
     [Header("Action")]
     [SerializeField] private string actionToPerform = "Place";
@@ -27,32 +30,16 @@ public class PlacementZone : MonoBehaviour, IPlacementZone, IHighlightable
 
     private bool isFilled = false;
     private bool isBeaconActive = false;
+    private bool isUnlocked = true;
+    private bool RequiresPrerequisite => prerequisiteTaskID != TaskID.None;
 
     public TMP_SpriteAsset SpriteAsset => targetItemData != null ? targetItemData.spriteAsset : null;
 
-    public float InteractionRange
-    {
-        get
-        {
-            return range;
-        }
-    }
+    public float InteractionRange => range;
 
-    public ItemType TargetItemType
-    {
-        get
-        {
-            return targetItemData != null ? targetItemData.itemID : ItemType.None;
-        }
-    }
+    public ItemType TargetItemType => targetItemData != null ? targetItemData.itemID : ItemType.None;
 
-    public bool IsFilled
-    {
-        get
-        {
-            return isFilled;
-        }
-    }
+    public bool IsFilled => isFilled;
 
     void Awake()
     {
@@ -71,40 +58,54 @@ public class PlacementZone : MonoBehaviour, IPlacementZone, IHighlightable
         {
             ghostObject.SetActive(false);
         }
+
+        // Lock placement zone by default if it depends on a prerequisite task
+        if (RequiresPrerequisite)
+        {
+            isUnlocked = false;
+        }
     }
 
     void OnEnable()
     {
         GameEvents.OnItemPickedUp += HandleItemPickedUp;
         GameEvents.OnItemPlaced += HandleItemPlaced;
+        GameEvents.OnTaskCompleted += HandleTaskCompleted;
     }
 
     void OnDisable()
     {
         GameEvents.OnItemPickedUp -= HandleItemPickedUp;
         GameEvents.OnItemPlaced -= HandleItemPlaced;
+        GameEvents.OnTaskCompleted -= HandleTaskCompleted;
     }
 
     private void HandleItemPickedUp(ItemSO item)
     {
-        // Automatically highlight this slot as a beacon across the room when player picks up the required item
-        if (!isFilled && item != null && item.itemID == targetItemData.itemID)
+        // Don't activate beacon if the zone is still locked by a prerequisite task
+        if (!isUnlocked || isFilled || item == null || targetItemData == null) return;
+
+        if (item.itemID == targetItemData.itemID)
         {
-            isBeaconActive = true;
-
-            // Reveal ghost mesh and activate highlight beacon across the room
-            if (ghostObject != null)
-            {
-                ghostObject.SetActive(true);
-            }
-
-            Highlight();
+            ActivateBeacon();
         }
+    }
+
+    private void ActivateBeacon()
+    {
+        isBeaconActive = true;
+
+        if (ghostObject != null)
+        {
+            ghostObject.SetActive(true);
+        }
+
+        Highlight();
     }
 
     private void HandleItemPlaced(ItemSO item)
     {
-        if (item != null && item.itemID == targetItemData.itemID)
+        if (item != null && targetItemData != null && item.itemID == targetItemData.itemID)
         {
             isBeaconActive = false;
             Unhighlight();
@@ -116,39 +117,41 @@ public class PlacementZone : MonoBehaviour, IPlacementZone, IHighlightable
         }
     }
 
+    private void HandleTaskCompleted(TaskID completedTaskID)
+    {
+        if (!RequiresPrerequisite || completedTaskID != prerequisiteTaskID) return;
+
+        isUnlocked = true;
+
+        if (ItemManager.Instance != null &&
+            ItemManager.Instance.CurrentHeldItemData != null &&
+            targetItemData != null &&
+            ItemManager.Instance.CurrentHeldItemData.itemID == targetItemData.itemID)
+        {
+            ActivateBeacon();
+        }
+    }
+
     public string GetPromptText()
     {
-        if (isFilled)
-        {
-            return string.Empty;
-        }
+        if (!isUnlocked || isFilled) return string.Empty;
 
         string displayName = targetItemData != null ? targetItemData.itemName : "Item";
+        Sprite icon = targetItemData != null ? targetItemData.icon : null;
 
-        return PromptFormatter.BuildPrompt("E", actionToPerform, displayName, inputColor, actionColor, itemColor, targetItemData.icon);
+        return PromptFormatter.BuildPrompt("E", actionToPerform, displayName, inputColor, actionColor, itemColor, icon);
     }
 
     public bool CanPlace(ItemType heldItem)
     {
-        if (isFilled)
-        {
-            return false;
-        }
+        if (!isUnlocked || isFilled || targetItemData == null) return false;
 
-        if (heldItem != targetItemData.itemID)
-        {
-            return false;
-        }
-
-        return true;
+        return heldItem == targetItemData.itemID;
     }
 
     public void PlaceItem(GameObject itemObject, Action onComplete)
     {
-        if (isFilled)
-        {
-            return;
-        }
+        if (!isUnlocked || isFilled) return;
 
         isFilled = true;
         isBeaconActive = false;
@@ -164,7 +167,6 @@ public class PlacementZone : MonoBehaviour, IPlacementZone, IHighlightable
             }
         }
 
-        // Turn off ghost mesh and outline when real book arrives
         if (ghostObject != null)
         {
             ghostObject.SetActive(false);
@@ -182,7 +184,6 @@ public class PlacementZone : MonoBehaviour, IPlacementZone, IHighlightable
         float duration = 0.25f;
         float elapsed = 0f;
 
-        // GetPositionAndRotation retrieves position and rotation in a single native C++ call
         itemObject.transform.GetPositionAndRotation(out Vector3 startPos, out Quaternion startRot);
 
         while (elapsed < duration)
@@ -193,7 +194,6 @@ public class PlacementZone : MonoBehaviour, IPlacementZone, IHighlightable
             Vector3 currentPos = Vector3.Lerp(startPos, targetPlacementTransform.position, t);
             Quaternion currentRot = Quaternion.Lerp(startRot, targetPlacementTransform.rotation, t);
 
-            // SetPositionAndRotation updates both transform vectors in a single native engine call
             itemObject.transform.SetPositionAndRotation(currentPos, currentRot);
 
             yield return null;
@@ -202,20 +202,17 @@ public class PlacementZone : MonoBehaviour, IPlacementZone, IHighlightable
         itemObject.transform.SetParent(targetPlacementTransform);
         itemObject.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);
 
-        if (onComplete != null)
-        {
-            onComplete.Invoke();
-        }
+        onComplete?.Invoke();
 
-        GameEvents.TriggerTaskCompleted();
+        if (completedTaskID != TaskID.None)
+        {
+            GameEvents.TriggerTaskCompleted(completedTaskID);
+        }
     }
 
     public void Highlight()
     {
-        if (isFilled)
-        {
-            return;
-        }
+        if (isFilled) return;
 
         if (outline != null)
         {
@@ -225,11 +222,7 @@ public class PlacementZone : MonoBehaviour, IPlacementZone, IHighlightable
 
     public void Unhighlight()
     {
-        // If the player is currently holding the item, keep the beacon active even if crosshair looks away
-        if (isBeaconActive)
-        {
-            return;
-        }
+        if (isBeaconActive) return;
 
         if (outline != null)
         {

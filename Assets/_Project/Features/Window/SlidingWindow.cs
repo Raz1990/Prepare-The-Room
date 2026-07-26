@@ -37,11 +37,6 @@ public class SlidingWindow : MonoBehaviour, IInteractable
         return PromptFormatter.BuildPrompt("LMB", "Close", "Window", inputColor, actionColor, objectColor);
     }
 
-    public Sprite GetPromptIcon()
-    {
-        return null; // No icon needed for plain interactables
-    }
-
     public bool CanInteract(ItemType _)
     {
         // One-way interaction: can only be interacted with if not already closed

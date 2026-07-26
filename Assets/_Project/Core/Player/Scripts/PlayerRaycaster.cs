@@ -147,11 +147,6 @@ public class PlayerRaycaster : MonoBehaviour
         }
     }
 
-    public IPromptable GetCurrentPromptable()
-    {
-        return currentPromptable;
-    }
-
     private ItemType GetCurrentlyHeldItem()
     {
         // Safe check against ItemManager instance and held ScriptableObject to retrieve itemID without null exceptions

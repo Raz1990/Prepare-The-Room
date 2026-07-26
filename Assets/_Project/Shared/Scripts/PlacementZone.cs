@@ -125,11 +125,6 @@ public class PlacementZone : MonoBehaviour, IPlacementZone, IHighlightable
         return PromptFormatter.BuildPrompt("E", actionToPerform, displayName, inputColor, actionColor, itemColor, targetItemData.icon);
     }
 
-    public Sprite GetPromptIcon()
-    {
-        return targetItemData != null ? targetItemData.icon : null;
-    }
-
     public bool CanPlace(ItemType heldItem)
     {
         if (isFilled)

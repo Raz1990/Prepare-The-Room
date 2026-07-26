@@ -57,11 +57,6 @@ public class BookItem : MonoBehaviour, IPickupable, IHighlightable
         return PromptFormatter.BuildPrompt("E", "Pick up", itemData.itemName, inputColor, actionColor, itemColor, itemData.icon);
     }
 
-    public Sprite GetPromptIcon()
-    {
-        return itemData != null ? itemData.icon : null;
-    }
-
     public bool CanPickup(ItemType heldItem)
     {
         if (isPickedUp)

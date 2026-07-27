@@ -110,11 +110,6 @@ public class PickupItem : MonoBehaviour, IPickupable, IHighlightable
 
         Unhighlight();
 
-        if (itemData != null && itemData.pickupSound != null && AudioManager.Instance != null)
-        {
-            AudioManager.Instance.PlaySFX(itemData.pickupSound);
-        }
-
         GameEvents.TriggerItemPickedUp(itemData);
 
         // Turn off the Animator so it won't override localPosition

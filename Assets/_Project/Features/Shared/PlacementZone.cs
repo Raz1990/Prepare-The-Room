@@ -11,8 +11,10 @@ public class PlacementZone : MonoBehaviour, IPlacementZone, IHighlightable
     [SerializeField] private Transform targetPlacementTransform;
 
     [Header("Activation Settings")]
-    [SerializeField] private TaskID prerequisiteTaskID = TaskID.None; // Task required to UNLOCK this zone
-    [SerializeField] private TaskID completedTaskID = TaskID.None; // Task broadcasted when item is PLACED here
+    [Tooltip("Action required to UNLOCK this zone")]
+    [SerializeField] private ActionID prerequisiteActionID = ActionID.None;
+    [Tooltip("Action broadcasted when item is PLACED here")]
+    [SerializeField] private ActionID completedActionID = ActionID.None;
 
     [Header("Action")]
     [SerializeField] private string actionToPerform = "Place";
@@ -31,7 +33,7 @@ public class PlacementZone : MonoBehaviour, IPlacementZone, IHighlightable
     private bool isFilled = false;
     private bool isBeaconActive = false;
     private bool isUnlocked = true;
-    private bool RequiresPrerequisite => prerequisiteTaskID != TaskID.None;
+    private bool RequiresPrerequisite => prerequisiteActionID != ActionID.None;
 
     public TMP_SpriteAsset SpriteAsset => targetItemData != null ? targetItemData.spriteAsset : null;
 
@@ -70,14 +72,14 @@ public class PlacementZone : MonoBehaviour, IPlacementZone, IHighlightable
     {
         GameEvents.OnItemPickedUp += HandleItemPickedUp;
         GameEvents.OnItemPlaced += HandleItemPlaced;
-        GameEvents.OnTaskCompleted += HandleTaskCompleted;
+        GameEvents.OnActionCompleted += HandleRequiredActionCompleted;
     }
 
     void OnDisable()
     {
         GameEvents.OnItemPickedUp -= HandleItemPickedUp;
         GameEvents.OnItemPlaced -= HandleItemPlaced;
-        GameEvents.OnTaskCompleted -= HandleTaskCompleted;
+        GameEvents.OnActionCompleted -= HandleRequiredActionCompleted;
     }
 
     private void HandleItemPickedUp(ItemSO item)
@@ -117,9 +119,9 @@ public class PlacementZone : MonoBehaviour, IPlacementZone, IHighlightable
         }
     }
 
-    private void HandleTaskCompleted(TaskID completedTaskID)
+    private void HandleRequiredActionCompleted(ActionID completedActionID)
     {
-        if (!RequiresPrerequisite || completedTaskID != prerequisiteTaskID) return;
+        if (!RequiresPrerequisite || completedActionID != prerequisiteActionID) return;
 
         isUnlocked = true;
 
@@ -156,16 +158,7 @@ public class PlacementZone : MonoBehaviour, IPlacementZone, IHighlightable
         isFilled = true;
         isBeaconActive = false;
 
-        // Play placement sound from the currently held ItemSO before clearing item data
-        if (ItemManager.Instance != null && ItemManager.Instance.CurrentHeldItemData != null)
-        {
-            AudioClip placeSound = ItemManager.Instance.CurrentHeldItemData.placementSound;
-
-            if (placeSound != null && AudioManager.Instance != null)
-            {
-                AudioManager.Instance.PlaySFX(placeSound);
-            }
-        }
+        GameEvents.TriggerItemPickedUp(ItemManager.Instance.CurrentHeldItemData);
 
         if (ghostObject != null)
         {
@@ -204,9 +197,9 @@ public class PlacementZone : MonoBehaviour, IPlacementZone, IHighlightable
 
         onComplete?.Invoke();
 
-        if (completedTaskID != TaskID.None)
+        if (completedActionID != ActionID.None)
         {
-            GameEvents.TriggerTaskCompleted(completedTaskID);
+            GameEvents.TriggerActionCompleted(completedActionID);
         }
     }
 

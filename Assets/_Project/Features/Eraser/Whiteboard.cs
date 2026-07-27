@@ -66,10 +66,7 @@ public class Whiteboard : MonoBehaviour, IInteractable
             eraserAnimator.SetTrigger(CleanTriggerHash);
         }
 
-        if (wipeSFX != null && AudioManager.Instance != null)
-        {
-            AudioManager.Instance.PlaySFX(wipeSFX);
-        }
+        AudioManager.TriggerPlaySFX(wipeSFX);
 
         WhiteboardEvents.TriggerWhiteboardCleaningStarted();
     }
@@ -82,6 +79,6 @@ public class Whiteboard : MonoBehaviour, IInteractable
             eraserAnimator.enabled = false;
         }
 
-        GameEvents.TriggerTaskCompleted(TaskID.CleanWhiteboard);
+        GameEvents.TriggerActionCompleted(ActionID.CleanWhiteboard);
     }
 }

@@ -1,4 +1,3 @@
-using NUnit.Framework.Interfaces;
 using TMPro;
 using UnityEngine;
 
@@ -58,15 +57,12 @@ public class SlidingWindow : MonoBehaviour, IInteractable
             windowAnimator.SetTrigger(CloseTriggerHash);
         }
 
-        if (closeSFX != null && AudioManager.Instance != null)
-        {
-            AudioManager.Instance.PlaySFX(closeSFX);
-        }
+        AudioManager.TriggerPlaySFX(closeSFX);
     }
 
     // Callback method invoked by Unity Animation Event on the last keyframe of the closing animation
     public void OnWindowClosedAnimationEnd()
     {
-        GameEvents.TriggerTaskCompleted(TaskID.CloseWindow);
+        GameEvents.TriggerActionCompleted(ActionID.CloseWindow);
     }
 }

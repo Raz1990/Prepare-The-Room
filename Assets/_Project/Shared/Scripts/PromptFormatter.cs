@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 
 public static class PromptFormatter
@@ -16,15 +15,23 @@ public static class PromptFormatter
         Sprite icon = null
     )
     {
-        // 1. Fetch hex colors from ColorsCenter defaults if none provided
+        // 1. Fetch hex colors for input and action
         string inputHex = ColorsCenter.ConvertColorToHexString(inputColor ?? ColorsCenter.Gold);
         string actionHex = ColorsCenter.ConvertColorToHexString(actionColor ?? ColorsCenter.LightGreen);
-        string itemHex = ColorsCenter.ConvertColorToHexString(itemColor ?? ColorsCenter.Teal);
 
-        // 2. Build sprite tag only if an icon is supplied
+        // 2. Base action prompt
+        string basePrompt = $"Press <color=#{inputHex}><b>[{inputKey}]</b></color> to <color=#{actionHex}><b>{action}</b></color>";
+
+        // 3. Return base prompt directly if no object name is provided
+        if (string.IsNullOrWhiteSpace(objectName))
+        {
+            return basePrompt;
+        }
+
+        // 4. Build object clause if objectName exists
+        string itemHex = ColorsCenter.ConvertColorToHexString(itemColor ?? ColorsCenter.Teal);
         string spriteTag = icon != null ? $"<sprite name=\"{icon.name}\"> " : string.Empty;
 
-        // 3. Assemble the single, unified string format
-        return $"Press <color=#{inputHex}><b>[{inputKey}]</b></color> to <color=#{actionHex}><b>{action}</b></color> the {spriteTag}<color=#{itemHex}><b>{objectName}</b></color>";
+        return $"{basePrompt} the {spriteTag}<color=#{itemHex}><b>{objectName}</b></color>";
     }
 }

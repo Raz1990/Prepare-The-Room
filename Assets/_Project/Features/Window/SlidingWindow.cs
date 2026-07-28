@@ -5,7 +5,6 @@ public class SlidingWindow : MonoBehaviour, IInteractable
 {
     [Header("Interaction Settings")]
     [SerializeField] private float range = 3f;
-    [SerializeField] private ItemType requiredItem = ItemType.None;
 
     [Header("UI Prompt Colors")]
     [SerializeField] private Color inputColor = ColorsCenter.Gold;
@@ -23,7 +22,7 @@ public class SlidingWindow : MonoBehaviour, IInteractable
 
     public TMP_SpriteAsset SpriteAsset => null;
     public float InteractionRange => range;
-    public ItemType RequiredItem => requiredItem;
+    public ItemType RequiredItem => ItemType.None;
 
     void Awake()
     {

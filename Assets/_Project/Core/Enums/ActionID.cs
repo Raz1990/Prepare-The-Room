@@ -5,6 +5,7 @@ public enum ActionID
     // Interaction related actions
     CloseWindow,
     CleanWhiteboard,
+    Sit,
 
     // Item related actions
     PlaceBook,

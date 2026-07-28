@@ -6,6 +6,7 @@ public class TaskSO : ScriptableObject
 {
     [Header("Task Info")]
     public string taskName; // Headline e.g., "Throw the Trash"
+    public bool showInSummary = true;
 
     [Header("Steps")]
     public List<TaskStep> steps = new List<TaskStep>();

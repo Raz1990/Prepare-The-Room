@@ -23,7 +23,7 @@ public class TaskUIController : MonoBehaviour
 
     void Start()
     {
-        InitializeCards();
+        CreateTaskCards();
     }
 
     void OnEnable()
@@ -49,7 +49,7 @@ public class TaskUIController : MonoBehaviour
         }
     }
 
-    public void InitializeCards()
+    public void CreateTaskCards()
     {
         foreach (TaskCardUI card in spawnedCards)
         {
@@ -87,6 +87,7 @@ public class TaskUIController : MonoBehaviour
             CreateTaskCard(progress);
         }
     }
+
     private void CreateTaskCard(TaskProgress progress)
     {
         TaskCardUI newCard = Instantiate(taskCardPrefab, cardContainer);
@@ -116,7 +117,7 @@ public class TaskUIController : MonoBehaviour
 
             if (spawnedCards.Count == 0)
             {
-                InitializeCards();
+                CreateTaskCards();
             }
         }
     }

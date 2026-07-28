@@ -3,15 +3,16 @@ using UnityEngine;
 
 public class TaskManager : MonoBehaviour
 {
-    [Header("Tasks Configuration")]
-    [SerializeField] private List<TaskSO> tasks = new List<TaskSO>();
-
     private List<TaskProgress> activeTasks = new List<TaskProgress>();
     private List<TaskProgress> completedTasks = new List<TaskProgress>();
+    private bool hasTriggeredAllTasksCompleted = false;
 
     void Awake()
     {
-        InitializeTasks();
+        // Manager starts clean. Tasks are dynamically supplied via TaskSequenceInjector or Quest Providers.
+        activeTasks.Clear();
+        completedTasks.Clear();
+        hasTriggeredAllTasksCompleted = false;
     }
 
     void OnEnable()
@@ -32,22 +33,41 @@ public class TaskManager : MonoBehaviour
     public List<TaskProgress> GetActiveTasks() => activeTasks;
     public List<TaskProgress> GetCompletedTasks() => completedTasks;
 
-    private void InitializeTasks()
+    /// <summary>
+    /// Injects a single TaskSO into the active task queue.
+    /// </summary>
+    public void AddTask(TaskSO newTask)
     {
-        activeTasks.Clear();
-        completedTasks.Clear();
+        if (newTask == null) return;
 
-        foreach (TaskSO task in tasks)
+        activeTasks.Add(new TaskProgress(newTask));
+        NotifyTaskCountChanged();
+
+        Debug.Log($"<color=cyan>[TaskManager] Dynamically Injected Task:</color> '{newTask.taskName}'");
+    }
+
+    /// <summary>
+    /// Injects a batch of TaskSO assets into the active task queue.
+    /// </summary>
+    public void AddTasks(List<TaskSO> newTasks)
+    {
+        if (newTasks == null) return;
+
+        int addedCount = 0;
+        foreach (TaskSO task in newTasks)
         {
             if (task != null)
             {
                 activeTasks.Add(new TaskProgress(task));
+                addedCount++;
             }
         }
 
-        NotifyTaskCountChanged();
-
-        Debug.Log($"[TaskManager] Initialized {activeTasks.Count} active tasks.");
+        if (addedCount > 0)
+        {
+            NotifyTaskCountChanged();
+            Debug.Log($"<color=cyan>[TaskManager] Dynamically Added {addedCount} Tasks.</color> Active total: {activeTasks.Count}");
+        }
     }
 
     private void HandleItemPickedUp(ItemSO item)
@@ -107,7 +127,7 @@ public class TaskManager : MonoBehaviour
                     // Move from active to completed list
                     activeTasks.RemoveAt(i);
                     completedTasks.Add(progress);
-                    
+
                     NotifyTaskCountChanged();
 
                     Debug.Log($"<color=green>[TaskManager] TASK COMPLETE:</color> '{progress.TaskData.taskName}'!");
@@ -128,8 +148,12 @@ public class TaskManager : MonoBehaviour
 
     private void CheckAllTasksCompleted()
     {
+        // Guard to not trigger further completed tasks event if the active tasks aren't part of the regular process 
+        if (hasTriggeredAllTasksCompleted) return;
+
         if (activeTasks.Count == 0 && completedTasks.Count > 0)
         {
+            hasTriggeredAllTasksCompleted = true;
             GameEvents.TriggerAllTasksCompleted();
             Debug.Log("<color=cyan><b>[TaskManager] ALL MISSIONS COMPLETED! Ready for Ending Sequence.</b></color>");
         }

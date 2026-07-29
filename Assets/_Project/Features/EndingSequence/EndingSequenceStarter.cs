@@ -1,10 +1,12 @@
 using UnityEngine;
 using UnityEngine.Playables;
 
-public class EndingSequenceManager : MonoBehaviour
+public class EndingSequenceStarter : MonoBehaviour
 {
     [Header("Cutscene References")]
     [SerializeField] private GameObject teacherGameObject;
+    [Tooltip("The group of kids that should be deactivated when the cutscene starts.")]
+    [SerializeField] private GameObject kidsGameObject;
     [SerializeField] private PlayableDirector cutsceneDirector;
 
     void OnEnable()
@@ -38,12 +40,23 @@ public class EndingSequenceManager : MonoBehaviour
             teacherGameObject.SetActive(true);
         }
 
-        // 2. Start cutscene timeline
+        // 2. Deactivate the kids group
+        DeactivateKids();
+
+        // 3. Start cutscene timeline
         if (cutsceneDirector != null)
         {
             cutsceneDirector.Play();
         }
 
-        Debug.Log("[EndingSequenceManager] Visual blink complete. Teacher active & Cutscene running!");
+        Debug.Log("[EndingSequenceManager] Visual blink complete. Teacher active, Kids hidden & Cutscene running!");
+    }
+
+    private void DeactivateKids()
+    {
+        if (kidsGameObject != null)
+        {
+            kidsGameObject.SetActive(false);
+        }
     }
 }

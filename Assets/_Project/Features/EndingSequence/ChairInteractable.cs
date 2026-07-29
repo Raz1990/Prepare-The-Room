@@ -19,7 +19,7 @@ public class ChairInteractable : MonoBehaviour, IInteractable, IHighlightable
 
     [Header("Cinemachine Setup (v3.0+)")]
     [SerializeField] private CinemachineCamera sitVirtualCamera;
-    [SerializeField] private CinemachineBrain cinemachineBrain; // Drag Main Camera here (or auto-fetched)
+    [SerializeField] private CinemachineBrain cinemachineBrain;
 
     [Header("Player References")]
     [SerializeField] private MonoBehaviour playerMovementScript;
@@ -120,8 +120,7 @@ public class ChairInteractable : MonoBehaviour, IInteractable, IHighlightable
     private IEnumerator SitSequenceRoutine()
     {
         // 1. Lock player movement and look controls
-        if (playerMovementScript != null) playerMovementScript.enabled = false;
-        if (mouseLookScript != null) mouseLookScript.enabled = false;
+        LockInputAndCamera();
 
         // 2. Notify TaskManager that sitting action is complete
         GameEvents.TriggerActionCompleted(sitActionID);
@@ -147,5 +146,11 @@ public class ChairInteractable : MonoBehaviour, IInteractable, IHighlightable
 
         // 5. Camera is 100% locked into position! Notify EndingSequenceManager
         OnPlayerSeated?.Invoke();
+    }
+
+    private void LockInputAndCamera()
+    {
+        if (playerMovementScript != null) playerMovementScript.enabled = false;
+        if (mouseLookScript != null) mouseLookScript.enabled = false;
     }
 }

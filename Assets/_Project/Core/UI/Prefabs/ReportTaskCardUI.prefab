@@ -103,12 +103,36 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1479511227536139597, guid: 4f9fc1e2eda330b45ab336b1203d976b, type: 3}
+      propertyPath: stepText
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1479511227536139597, guid: 4f9fc1e2eda330b45ab336b1203d976b, type: 3}
+      propertyPath: stepRectTransform
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2740953510609884733, guid: 4f9fc1e2eda330b45ab336b1203d976b, type: 3}
       propertyPath: m_text
       value: 'Close the window
 
 
 '
+      objectReference: {fileID: 0}
+    - target: {fileID: 2740953510609884733, guid: 4f9fc1e2eda330b45ab336b1203d976b, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2740953510609884733, guid: 4f9fc1e2eda330b45ab336b1203d976b, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2740953510609884733, guid: 4f9fc1e2eda330b45ab336b1203d976b, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2740953510609884733, guid: 4f9fc1e2eda330b45ab336b1203d976b, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278190080
       objectReference: {fileID: 0}
     - target: {fileID: 2740953510609884733, guid: 4f9fc1e2eda330b45ab336b1203d976b, type: 3}
       propertyPath: m_VerticalAlignment
@@ -215,7 +239,8 @@ PrefabInstance:
       value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6281037304766445116, guid: 4f9fc1e2eda330b45ab336b1203d976b, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 4802302773635288183, guid: 4f9fc1e2eda330b45ab336b1203d976b, type: 3}
       insertIndex: 0

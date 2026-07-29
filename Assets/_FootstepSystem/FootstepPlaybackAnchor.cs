@@ -50,7 +50,7 @@ public class FootstepPlaybackAnchor : MonoBehaviour
     /// Call this function via your Animation Events or movement script!
     /// Pass 0 for Soft, 1 for Medium, 2 for Hard.
     /// </summary>
-    public void TriggerFootstepEvent(int intensityIndex)
+    public void TriggerFootstepEvent(IntensityEnum intensity = IntensityEnum.Medium)
     {
         if (activeFootProfile == null) return;
 
@@ -69,7 +69,7 @@ public class FootstepPlaybackAnchor : MonoBehaviour
                 string detectedSurfaceName = GetSurfaceNameFromHit(hit);
                 if (!string.IsNullOrEmpty(detectedSurfaceName))
                 {
-                    PlayMatchingFootstep(detectedSurfaceName, intensityIndex);
+                    PlayMatchingFootstep(detectedSurfaceName, (int)intensity);
                 }
             }
         }

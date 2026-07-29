@@ -1,0 +1,482 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b42d126318e76134ba6ec2d2a6c26a11, type: 3}
+  m_Name: MasterFootProfile
+  m_EditorClassIdentifier: Assembly-CSharp::FootProfileSO
+  profileName: Master Pre-made Profile
+  materialSpecifications:
+  - templateSelection: 1
+    materialName: Grass/Dirt
+    volumeMultiplier: 1
+    similarNames:
+    - Grass
+    - Dirt
+    - Lawn
+    - Field
+    - Meadow
+    - Ground
+    - Soil
+    shoeSteps:
+      softSteps:
+      - {fileID: 8300000, guid: 78f440d3daee6ee4ea9a9f9bb055cc11, type: 3}
+      - {fileID: 8300000, guid: 7420cc5084b12b046b764f1d3032cb19, type: 3}
+      - {fileID: 8300000, guid: 846565d3e72d9394bb22545f6c876b5e, type: 3}
+      - {fileID: 8300000, guid: aeea72a1bf3e5ea428d82ec3d852f80f, type: 3}
+      - {fileID: 8300000, guid: fad53e800eca2f345937d4550f928d3a, type: 3}
+      mediumSteps:
+      - {fileID: 8300000, guid: 0e2154b5c2467164e831b3eaff3e01d4, type: 3}
+      - {fileID: 8300000, guid: 3d1aff4ca8fda934987c0361c8dd3f02, type: 3}
+      - {fileID: 8300000, guid: 3963bd1cfac1d19418aee6a63196d1f2, type: 3}
+      - {fileID: 8300000, guid: 3919a969c1d489141b5dc5b800f6bdbd, type: 3}
+      - {fileID: 8300000, guid: 6d27547f2980b2b46b5c91997acf2782, type: 3}
+      hardSteps:
+      - {fileID: 8300000, guid: b1921272095d6b34d88e6d6edad95da0, type: 3}
+      - {fileID: 8300000, guid: a56015c8688a2a24bbe56acbfbdba4ad, type: 3}
+      - {fileID: 8300000, guid: fb29fbb6e01424b41b8716df6c80457c, type: 3}
+      - {fileID: 8300000, guid: 1a9d66c9870d8414bbf1c5acac035fbf, type: 3}
+      - {fileID: 8300000, guid: 0a77dbc28c5659a40980ff7ba51e9cee, type: 3}
+    bareFootSteps:
+      softSteps:
+      - {fileID: 8300000, guid: 2196ea7d15211e24cb3c27d982c72d8c, type: 3}
+      - {fileID: 8300000, guid: ddb30f257c2ce6849908777546518522, type: 3}
+      - {fileID: 8300000, guid: 6ce977073713c2f48941d3060fc1d546, type: 3}
+      - {fileID: 8300000, guid: 6c9c95e5cfd0a4241a8add739501617c, type: 3}
+      - {fileID: 8300000, guid: 3947c8a046d31b54a885faefb5ea2605, type: 3}
+      mediumSteps:
+      - {fileID: 8300000, guid: 4bdddfd7505ef504aa82ff3193946d01, type: 3}
+      - {fileID: 8300000, guid: fa30a260083db3841873a8e384692b96, type: 3}
+      - {fileID: 8300000, guid: 4279e7b021dd41b42a0475803092c1b8, type: 3}
+      - {fileID: 8300000, guid: 623c4c6556faa0b4eb2a5d3c668978ee, type: 3}
+      - {fileID: 8300000, guid: b879f4f3ee64d8642bcab35eff2c61c7, type: 3}
+      hardSteps:
+      - {fileID: 8300000, guid: 50078ae134e34204dab566ba6fa040ca, type: 3}
+      - {fileID: 8300000, guid: 95fe6662094137349bcd315e6be4a49a, type: 3}
+      - {fileID: 8300000, guid: d5f58eea8a3378f40926bd5c7aedfc0b, type: 3}
+      - {fileID: 8300000, guid: a1fb0ca32b1c9cc49925afd422dc8431, type: 3}
+      - {fileID: 8300000, guid: 033763d2119540d42ae9f7fe9c3a69bb, type: 3}
+    scuffs: []
+    jumps: []
+    lands: []
+  - templateSelection: 2
+    materialName: Stone/Concrete
+    volumeMultiplier: 1
+    similarNames:
+    - Stone
+    - Concrete
+    - Rock
+    - Pavement
+    - Brick
+    - Cliff
+    - Cement
+    shoeSteps:
+      softSteps:
+      - {fileID: 8300000, guid: 9820bb6ab113c41418b5df9ded4c5b29, type: 3}
+      - {fileID: 8300000, guid: a77b5fe41e05ab14b8f9036dbeaf1cb3, type: 3}
+      - {fileID: 8300000, guid: 9546df88071e15a48b910fbab7312191, type: 3}
+      - {fileID: 8300000, guid: 4759826da2b5dbc40aed6fa1872f78e3, type: 3}
+      - {fileID: 8300000, guid: 00280685e40983845ac50a8c35e27770, type: 3}
+      mediumSteps:
+      - {fileID: 8300000, guid: 679297bc4c2870446b85cf184f5fbdb1, type: 3}
+      - {fileID: 8300000, guid: 1b2fab58e625bb04b865185c63e991e7, type: 3}
+      - {fileID: 8300000, guid: c08d31792495d88468bc682af1b691a1, type: 3}
+      - {fileID: 8300000, guid: 2b94f0c7fa9921642bf6dc2966991cec, type: 3}
+      - {fileID: 8300000, guid: cf46fd071ea8aa447af4cec9ded44515, type: 3}
+      hardSteps:
+      - {fileID: 8300000, guid: 1845a30b651bdec4ab46a5279db3856d, type: 3}
+      - {fileID: 8300000, guid: cb5aeff1710efc242bc2b05e17c6f4d4, type: 3}
+      - {fileID: 8300000, guid: 3eb3d661555b3ee499f413d7e00d02bf, type: 3}
+      - {fileID: 8300000, guid: fa152756146f4d84398b60d12e816eb3, type: 3}
+      - {fileID: 8300000, guid: e3b9b1165be300a4cb8c440a6401ffbb, type: 3}
+    bareFootSteps:
+      softSteps:
+      - {fileID: 8300000, guid: 902115a4f8eda3a408268c84106c1740, type: 3}
+      - {fileID: 8300000, guid: b7910565e159f224bae55c676ebffad9, type: 3}
+      - {fileID: 8300000, guid: fa4b96bf4b1b07947a1abf51628d85ba, type: 3}
+      - {fileID: 8300000, guid: 0c7cef2cd50650743bd011e335296833, type: 3}
+      - {fileID: 8300000, guid: 7f71dcdfdb57f21428004bc3dfd5d9e4, type: 3}
+      mediumSteps:
+      - {fileID: 8300000, guid: c06996e11201af2408b3ab2c711fe24c, type: 3}
+      - {fileID: 8300000, guid: d0dc156ba2b353f488396913ef58943a, type: 3}
+      - {fileID: 8300000, guid: ef94bb290d739ff43bfaa4d215ae92f9, type: 3}
+      - {fileID: 8300000, guid: 4b5611bfb19b1d04986242ce2be2db78, type: 3}
+      - {fileID: 8300000, guid: 1819d830ca791cf4892e5c286a1a23dc, type: 3}
+      hardSteps:
+      - {fileID: 8300000, guid: ffd2aa593389f384f8680c1aaf43435a, type: 3}
+      - {fileID: 8300000, guid: 5a2170aa003a29543b3f3755d0e8633b, type: 3}
+      - {fileID: 8300000, guid: 8bdee919952d40545b427314f75d67f8, type: 3}
+      - {fileID: 8300000, guid: c387abb6e8cb666438f12cbb3bc967ed, type: 3}
+      - {fileID: 8300000, guid: d4dac5e7f4da4bb4090aff92b0fa83f3, type: 3}
+    scuffs: []
+    jumps: []
+    lands: []
+  - templateSelection: 3
+    materialName: Wood
+    volumeMultiplier: 1
+    similarNames:
+    - Wood
+    - Plank
+    - Floorboard
+    - Deck
+    - Log
+    - Cabin
+    shoeSteps:
+      softSteps:
+      - {fileID: 8300000, guid: ccd48b72cede90547a1177f94f17bffc, type: 3}
+      - {fileID: 8300000, guid: 2ff2f6ebb344d8a4db59a16bdb5f1d68, type: 3}
+      - {fileID: 8300000, guid: a1be2a21f19f1c843b97502f63f590b7, type: 3}
+      - {fileID: 8300000, guid: e5950ccbbfc1c124fa47118bb5a851a3, type: 3}
+      - {fileID: 8300000, guid: 28564e77810b9924bb2885fbb9c40d66, type: 3}
+      mediumSteps:
+      - {fileID: 8300000, guid: 7689b5cfb3f528f49929897983de4e29, type: 3}
+      - {fileID: 8300000, guid: 7ca973b7bb80a2845b3e3484d50c7536, type: 3}
+      - {fileID: 8300000, guid: 6f98dd3f06a814d47aebb87befeac702, type: 3}
+      - {fileID: 8300000, guid: 808c0cd5f5e83254ca31657c2b70dd9e, type: 3}
+      - {fileID: 8300000, guid: fa928bfb8c906d74c8dba556ed786b0b, type: 3}
+      hardSteps:
+      - {fileID: 8300000, guid: 3ad0f762fa18c9e429f131a2e7fb57b7, type: 3}
+      - {fileID: 8300000, guid: 3574052fd64af0d4b9a00dcdff9d0923, type: 3}
+      - {fileID: 8300000, guid: b3a584ce1d177f549952616b33a2ec06, type: 3}
+      - {fileID: 8300000, guid: 25b0e175f9a3bdf49a291436d17be36e, type: 3}
+      - {fileID: 8300000, guid: e89381b189689714b9e6d0597671c724, type: 3}
+    bareFootSteps:
+      softSteps:
+      - {fileID: 8300000, guid: 3d7e1b7dc198d7746a4c0bdd77b0fb8d, type: 3}
+      - {fileID: 8300000, guid: f45c1ce34c23ffb44ad0100ca9370fe3, type: 3}
+      - {fileID: 8300000, guid: 6ec8913ae11894240a300a7d6928fe4f, type: 3}
+      - {fileID: 8300000, guid: 6dd092e6320bcc547b7d995c90ff049c, type: 3}
+      - {fileID: 8300000, guid: f56cda50b496b6843a90a7d74d98bf67, type: 3}
+      mediumSteps:
+      - {fileID: 8300000, guid: 26116a98400a49442a1127cc60157a7e, type: 3}
+      - {fileID: 8300000, guid: 9028aea05abd52240a471d54d5feb7a9, type: 3}
+      - {fileID: 8300000, guid: 37494cc0399a30d4bb92577d4e4338f0, type: 3}
+      - {fileID: 8300000, guid: b558a209592179d4dbd17efc4b25c85a, type: 3}
+      - {fileID: 8300000, guid: 3190e3f122405f14c93b2ff0e4a27937, type: 3}
+      hardSteps:
+      - {fileID: 8300000, guid: ef331163fa5807f4cb7542bec9e0ee51, type: 3}
+      - {fileID: 8300000, guid: ccf658da4b1b16b4babf7f48ced3e27e, type: 3}
+      - {fileID: 8300000, guid: 4f807b25685d8a942a6fd771323caeb4, type: 3}
+      - {fileID: 8300000, guid: 5a10594ab73cb9f489ad61b4e5faa30c, type: 3}
+      - {fileID: 8300000, guid: b867bd82601574d45bbc6aa6f258f2e5, type: 3}
+    scuffs: []
+    jumps: []
+    lands: []
+  - templateSelection: 4
+    materialName: Sand
+    volumeMultiplier: 1
+    similarNames:
+    - Sand
+    - Beach
+    - Desert
+    - Dune
+    shoeSteps:
+      softSteps:
+      - {fileID: 8300000, guid: 6488c7296aef5ee4f96d208a96b06649, type: 3}
+      - {fileID: 8300000, guid: 3475f90b9c115a644bcfa2fd5cbf8dbb, type: 3}
+      - {fileID: 8300000, guid: 8a6082d7771a0cc4b807c317c47fdaa3, type: 3}
+      - {fileID: 8300000, guid: d9daa7df7a42c5843ae679ef3a4b6edd, type: 3}
+      - {fileID: 8300000, guid: c9309c2bbf7fe664fb61f3cbd918e15f, type: 3}
+      mediumSteps:
+      - {fileID: 8300000, guid: 2142780f0ff1ebf46ad91094c094c872, type: 3}
+      - {fileID: 8300000, guid: 5128b6e19d6b3c0459c23c862c039713, type: 3}
+      - {fileID: 8300000, guid: 8f2d785ddfe89174f9edeeeceba8093a, type: 3}
+      - {fileID: 8300000, guid: c94dec324c05b3c469f79a2496f9aa03, type: 3}
+      - {fileID: 8300000, guid: 90260e0fc2ea5264f9fc96f60c67c504, type: 3}
+      hardSteps:
+      - {fileID: 8300000, guid: a171cc6fa30e3b84b925868ef66ad4b8, type: 3}
+      - {fileID: 8300000, guid: e7b16449436800149aeb0df66c4899ba, type: 3}
+      - {fileID: 8300000, guid: f58200004695e484584b272757c292db, type: 3}
+      - {fileID: 8300000, guid: 7aa88f480fb4a4e4b81bd2e1d72ae06b, type: 3}
+      - {fileID: 8300000, guid: e706e440f5b2a4e418435592f0e79295, type: 3}
+    bareFootSteps:
+      softSteps:
+      - {fileID: 8300000, guid: 087087eae5569184e8b2c0e34446ddab, type: 3}
+      - {fileID: 8300000, guid: ed0bdfdc791f0f54995480519ef1bd1b, type: 3}
+      - {fileID: 8300000, guid: 21d414abb7fc4e5438df497e2d99980b, type: 3}
+      - {fileID: 8300000, guid: 9a494ccb0836c1e4a997c79b7a1c1dc7, type: 3}
+      - {fileID: 8300000, guid: 91fb4eeca35d711468718a7317e2c8e0, type: 3}
+      mediumSteps:
+      - {fileID: 8300000, guid: 0b708fb03fc589d4fa1344898e143852, type: 3}
+      - {fileID: 8300000, guid: ad51d20ddcc94144192aeedca87ed327, type: 3}
+      - {fileID: 8300000, guid: 1a976dd23e432ff4cb4119a073de7a7a, type: 3}
+      - {fileID: 8300000, guid: 0ef67c70a5f3e95439afc0ae51e2b174, type: 3}
+      - {fileID: 8300000, guid: e4062ee59ec5f674aae1612e017f8173, type: 3}
+      hardSteps:
+      - {fileID: 8300000, guid: 0b1557f1fb001e34bb816c3b81954cd1, type: 3}
+      - {fileID: 8300000, guid: 37717dd4aae6fe647b553fb057b6a369, type: 3}
+      - {fileID: 8300000, guid: 3a53396f146d1d140ab5ffa20b692c0b, type: 3}
+      - {fileID: 8300000, guid: fb523db64fe829a40a467c3bcd325d36, type: 3}
+      - {fileID: 8300000, guid: 458f2d11f154b25498ba638455f337a1, type: 3}
+    scuffs: []
+    jumps: []
+    lands: []
+  - templateSelection: 5
+    materialName: Gravel
+    volumeMultiplier: 1
+    similarNames:
+    - Gravel
+    - Pebbles
+    - Path
+    - Shingle
+    shoeSteps:
+      softSteps:
+      - {fileID: 8300000, guid: 76da32350e00a654b808bee3ecfe0cb4, type: 3}
+      - {fileID: 8300000, guid: 4e258308ddd562e418fff418a1536a62, type: 3}
+      - {fileID: 8300000, guid: 310cc595b7f3f384a83c5ab2b9300890, type: 3}
+      - {fileID: 8300000, guid: 2e3504db6cf87bb4ebe28ba2eaa2cdc8, type: 3}
+      - {fileID: 8300000, guid: be3456acbe435164b941129a05cb79c5, type: 3}
+      mediumSteps:
+      - {fileID: 8300000, guid: b94881b5a07309442acfeab7f0fd49e2, type: 3}
+      - {fileID: 8300000, guid: f5d6a06180bb9be44989d4c787499eda, type: 3}
+      - {fileID: 8300000, guid: 113ea0cac61bc3244b97257e436ad397, type: 3}
+      - {fileID: 8300000, guid: aeca31eea26451f44adca07c1ce30dfe, type: 3}
+      - {fileID: 8300000, guid: c0823ebff8732cd4ebd511f25cd6a784, type: 3}
+      hardSteps:
+      - {fileID: 8300000, guid: 45e2e10650e48e242af1b981cda84982, type: 3}
+      - {fileID: 8300000, guid: 5888deae0893464459b609971e7877cd, type: 3}
+      - {fileID: 8300000, guid: 9a32b0aab14a8bb4ba7bb468532a98ab, type: 3}
+      - {fileID: 8300000, guid: 6a03c6cc5338d32499ab249a1f00c9ef, type: 3}
+      - {fileID: 8300000, guid: 3a150dfa5881291438af723aff7424eb, type: 3}
+    bareFootSteps:
+      softSteps:
+      - {fileID: 8300000, guid: d01994b18be6af242a2dc3047ba797be, type: 3}
+      - {fileID: 8300000, guid: 63d316ab4c8a15d48815acbc547f5576, type: 3}
+      - {fileID: 8300000, guid: 0e78a5f5d3a2ebd4d83af56c6512015a, type: 3}
+      - {fileID: 8300000, guid: cc9f9c7cdac7f1b4bbd4f3e13054080b, type: 3}
+      - {fileID: 8300000, guid: bd9ea436066c1514183a12012afde60e, type: 3}
+      mediumSteps:
+      - {fileID: 8300000, guid: 269387ecb4841104286d4204a15eb49b, type: 3}
+      - {fileID: 8300000, guid: 3f9b7da6a03d7ab46afe011309d30b97, type: 3}
+      - {fileID: 8300000, guid: aeb4f1beb51d03e40b1f437755dc2185, type: 3}
+      - {fileID: 8300000, guid: 8a1e93134c783ca44ba428ab644b7568, type: 3}
+      - {fileID: 8300000, guid: c027d0e2c9ed7904880ebede3c9fc9d4, type: 3}
+      hardSteps:
+      - {fileID: 8300000, guid: 8f2d948b00877e846aaf51ed1c17f507, type: 3}
+      - {fileID: 8300000, guid: 1904132bfd15d104a811ede40c5dda62, type: 3}
+      - {fileID: 8300000, guid: ef8e9a97697a7c949a9dd591ac6f3484, type: 3}
+      - {fileID: 8300000, guid: 8e02900559ca1a344856a9f1c94a6307, type: 3}
+      - {fileID: 8300000, guid: ec5d3be92e4770a42b34ae87e8fac66f, type: 3}
+    scuffs: []
+    jumps: []
+    lands: []
+  - templateSelection: 6
+    materialName: Snow
+    volumeMultiplier: 1
+    similarNames:
+    - Snow
+    - Ice
+    - Frost
+    - Glacier
+    - Frozen
+    shoeSteps:
+      softSteps:
+      - {fileID: 8300000, guid: 07c22cfbb49288e4bb43255e9031fba2, type: 3}
+      - {fileID: 8300000, guid: 1d831f3f2927cd441986c8373dcc46d1, type: 3}
+      - {fileID: 8300000, guid: 0498d53ec4adc5d4a9721efb46044db2, type: 3}
+      - {fileID: 8300000, guid: a9c29328dc07a614696a4471aa32c4ee, type: 3}
+      - {fileID: 8300000, guid: 3b38a2fbd50dc8b4fa6ce12b1e424bd2, type: 3}
+      mediumSteps:
+      - {fileID: 8300000, guid: 587599c177874234d832c8005daa189b, type: 3}
+      - {fileID: 8300000, guid: 98023d5af5de51645a9b07c243cafd5d, type: 3}
+      - {fileID: 8300000, guid: fb3df446a57346c4f99e51983c5d7902, type: 3}
+      - {fileID: 8300000, guid: ebf134c74cc90d74181780c80c1e03f6, type: 3}
+      - {fileID: 8300000, guid: 7b54bb919e249ea4ab35305d79b15e83, type: 3}
+      hardSteps:
+      - {fileID: 8300000, guid: 1c77e61fa278d4c4782e5fae82b2bfcb, type: 3}
+      - {fileID: 8300000, guid: 21d9b38723e39ab48979df487762066e, type: 3}
+      - {fileID: 8300000, guid: c123912865f6f2c4188965841ad9f5a1, type: 3}
+      - {fileID: 8300000, guid: 0735d4a52306e3a40a7c9f28fef3197c, type: 3}
+      - {fileID: 8300000, guid: 7c66b22cd16086845afcab88edbe9cc1, type: 3}
+    bareFootSteps:
+      softSteps:
+      - {fileID: 8300000, guid: c04891fcb1e86c6438ce0099a98c1db9, type: 3}
+      - {fileID: 8300000, guid: f54cc95cdcf4b044daedb9470a7e904c, type: 3}
+      - {fileID: 8300000, guid: e4f6addcf98f97a4b848e3b5d75130bf, type: 3}
+      - {fileID: 8300000, guid: 4dc289117e6d4034697fe58eb2f72c11, type: 3}
+      - {fileID: 8300000, guid: 7fc0b301ce397a14abb80f7228208ded, type: 3}
+      mediumSteps:
+      - {fileID: 8300000, guid: 44ed611e5291d1b4494f35f53561bb4a, type: 3}
+      - {fileID: 8300000, guid: 12a3333e2956eeb4eabaa9879d7ebca8, type: 3}
+      - {fileID: 8300000, guid: 41068d27a30094f4e89add42cd1ed485, type: 3}
+      - {fileID: 8300000, guid: f13c9a175e1408345a89f56adb79bbab, type: 3}
+      - {fileID: 8300000, guid: 53bf6b7c92a6f114eb7b4083ca9e72b0, type: 3}
+      hardSteps:
+      - {fileID: 8300000, guid: f3d32928cbdf7ee43a3e44beb64e3b1c, type: 3}
+      - {fileID: 8300000, guid: 57758fdd250ea5d4db40e7f1b8a8c6ee, type: 3}
+      - {fileID: 8300000, guid: ec3c7b7ade6d53543abd51466a1e61b2, type: 3}
+      - {fileID: 8300000, guid: 2351aeacf6551e948b03f5e39642c91c, type: 3}
+      - {fileID: 8300000, guid: 70950412b07ecce49a7ceeb1c752bc9c, type: 3}
+    scuffs: []
+    jumps: []
+    lands: []
+  - templateSelection: 7
+    materialName: Metal
+    volumeMultiplier: 1
+    similarNames:
+    - Metal
+    - Iron
+    - Steel
+    - Grate
+    - Vent
+    - Pipe
+    - Platform
+    shoeSteps:
+      softSteps:
+      - {fileID: 8300000, guid: f3797be4250f6ca40b45cd8203a69ed1, type: 3}
+      - {fileID: 8300000, guid: 296763a67f5523b4bbb88d75442da2f6, type: 3}
+      - {fileID: 8300000, guid: aadd22f4878bd7c45a98c54987b13178, type: 3}
+      - {fileID: 8300000, guid: 681b172ca6c956241b9e03fcf83f9818, type: 3}
+      - {fileID: 8300000, guid: af063e5cc3c96f544bc93818ae4241dd, type: 3}
+      mediumSteps:
+      - {fileID: 8300000, guid: edb5c50ae3dc03d4388eeb40eeb0979a, type: 3}
+      - {fileID: 8300000, guid: 5615b70eb083b9446b7f141b5a85109d, type: 3}
+      - {fileID: 8300000, guid: 8b419970bdbd9f848a2fb9b133ff266e, type: 3}
+      - {fileID: 8300000, guid: 4ea99517dbb2c094e9d8892f08079b0b, type: 3}
+      - {fileID: 8300000, guid: ca40cfc6ec7cbbd46a59e380873b3de0, type: 3}
+      hardSteps:
+      - {fileID: 8300000, guid: 2a77c2fd67f3bb543b863dc5831b54f8, type: 3}
+      - {fileID: 8300000, guid: 63907604b29972845b653fd77c34474d, type: 3}
+      - {fileID: 8300000, guid: 46f57b9142035e744b71afcf4730d7c6, type: 3}
+      - {fileID: 8300000, guid: 95af21f7f36571447a7853d04e52a4cf, type: 3}
+      - {fileID: 8300000, guid: 0dd0e09c6f21b8f4c8fe93cc369beb15, type: 3}
+    bareFootSteps:
+      softSteps:
+      - {fileID: 8300000, guid: c55f04bb0851b804f982cb21bd34b1a3, type: 3}
+      - {fileID: 8300000, guid: 2901ce849a6e06b43ab54ec254c4f4c8, type: 3}
+      - {fileID: 8300000, guid: 99cb83519c61cb4499fa75b9206508fd, type: 3}
+      - {fileID: 8300000, guid: f73968613bb285a49960481f8b37b14c, type: 3}
+      - {fileID: 8300000, guid: 63329a28f4840ac488f608270f60cd7e, type: 3}
+      mediumSteps:
+      - {fileID: 8300000, guid: 3367cfc19ad8a5e4cb40f16dd2a59f27, type: 3}
+      - {fileID: 8300000, guid: 5cd75c873b5d6e44bae3655161e68250, type: 3}
+      - {fileID: 8300000, guid: b62f674bf429db242880e9c80a9eefe5, type: 3}
+      - {fileID: 8300000, guid: 3245edfde0eaaad40863766e0be83574, type: 3}
+      - {fileID: 8300000, guid: 3c4a59b56f1efd24e96218db8fa00e0f, type: 3}
+      hardSteps:
+      - {fileID: 8300000, guid: f486ddeb8d7a5894990acc21eead65bd, type: 3}
+      - {fileID: 8300000, guid: bc3ceece231f0b44c890e495c3b85025, type: 3}
+      - {fileID: 8300000, guid: 5f66c88b1fa96b64082cb0fb307af250, type: 3}
+      - {fileID: 8300000, guid: c2b6fbb29322f634f92be4abd9c23e26, type: 3}
+      - {fileID: 8300000, guid: f3124edef3708ac46afd11bae1048b89, type: 3}
+    scuffs: []
+    jumps: []
+    lands: []
+  - templateSelection: 8
+    materialName: Water/Mud
+    volumeMultiplier: 1
+    similarNames:
+    - Water
+    - Pond
+    - Lake
+    - River
+    - Stream
+    - Ocean
+    - Sea
+    - Pool
+    - Marsh
+    - Mud
+    - Swamp
+    - Bog
+    - Mire
+    - Sludge
+    - Wet
+    shoeSteps:
+      softSteps:
+      - {fileID: 8300000, guid: b1ebe273a5a0b3f46813339390e22a72, type: 3}
+      - {fileID: 8300000, guid: bae9bb1a4923d854bacbe335acdf9922, type: 3}
+      - {fileID: 8300000, guid: a19f15c66d738cc44a9b3fad60cf4f42, type: 3}
+      - {fileID: 8300000, guid: db848156c37405746b4e3f29d2a8f35b, type: 3}
+      - {fileID: 8300000, guid: 4cc406cb9181dff459010e859945d871, type: 3}
+      mediumSteps:
+      - {fileID: 8300000, guid: a969f8bef66ff9e4595085ffb41a6acc, type: 3}
+      - {fileID: 8300000, guid: b05cca0123d0e2746a76b5e0c662c751, type: 3}
+      - {fileID: 8300000, guid: 9e4d965e05bd19945a41b37716aba7c1, type: 3}
+      - {fileID: 8300000, guid: 7e08426528351d84aba6934106773775, type: 3}
+      - {fileID: 8300000, guid: 55760724fbbf02a41af9ed8ac3290dcf, type: 3}
+      hardSteps:
+      - {fileID: 8300000, guid: 89325f381fa29064da0579dbfc0a66b8, type: 3}
+      - {fileID: 8300000, guid: 8ea3a1690f346ce49b5519b7fff152be, type: 3}
+      - {fileID: 8300000, guid: 133c305d04c03524aa730a266b392ac5, type: 3}
+      - {fileID: 8300000, guid: a3cc11695c0d3fe4aa2730522c090dfa, type: 3}
+      - {fileID: 8300000, guid: 3adc5b0f6c7bb924586d646ffd032807, type: 3}
+    bareFootSteps:
+      softSteps:
+      - {fileID: 8300000, guid: e4dc2478929f42d45a7507a8c8b23d66, type: 3}
+      - {fileID: 8300000, guid: 4ef62f02c28847d498ad3c43be507e68, type: 3}
+      - {fileID: 8300000, guid: e4359393108bb9c448d55e72bd0a9ea8, type: 3}
+      - {fileID: 8300000, guid: f90c519180a8df0488fbb5cc58d0080e, type: 3}
+      - {fileID: 8300000, guid: 06c56ce9a7b936240abeab71d9da62b8, type: 3}
+      mediumSteps:
+      - {fileID: 8300000, guid: c16084fd94425d34d9dfdd54121e432d, type: 3}
+      - {fileID: 8300000, guid: 6c6e36c8368e363429c58c625e304c99, type: 3}
+      - {fileID: 8300000, guid: d5929ec9b4283dc46a072743deb222fb, type: 3}
+      - {fileID: 8300000, guid: ba528d9429d0f0743bf8d950f7883c01, type: 3}
+      - {fileID: 8300000, guid: a32f525aa26d2ff43886e7d6fb00201e, type: 3}
+      hardSteps:
+      - {fileID: 8300000, guid: c815d49e0a47b9943ab2fba660b98a59, type: 3}
+      - {fileID: 8300000, guid: 2532ea053fb8dde42b91154f126c5c7c, type: 3}
+      - {fileID: 8300000, guid: 764243b4066e78f4593877f0784d2d5c, type: 3}
+      - {fileID: 8300000, guid: 080818571a0c03e4e88974e9a1495c39, type: 3}
+      - {fileID: 8300000, guid: 392d4079f0dada64285010678edb3056, type: 3}
+    scuffs: []
+    jumps: []
+    lands: []
+  - templateSelection: 9
+    materialName: Fabric/Rug
+    volumeMultiplier: 1
+    similarNames:
+    - Fabric
+    - Rug
+    - Carpet
+    - Mat
+    - Cloth
+    - Floor
+    shoeSteps:
+      softSteps:
+      - {fileID: 8300000, guid: 0073343c62b756f4e86eef0ac86316d9, type: 3}
+      - {fileID: 8300000, guid: d3399e3bf70a5af42a603c96e0b2dfc7, type: 3}
+      - {fileID: 8300000, guid: a64e118fedb482c44900b36ff044c141, type: 3}
+      - {fileID: 8300000, guid: 948b5ee56fea0204da5b8cae6af95461, type: 3}
+      - {fileID: 8300000, guid: 2cd24b7e5080ee3438a05a0d0a1216db, type: 3}
+      mediumSteps:
+      - {fileID: 8300000, guid: 83758def78b5b92488722cc1df44647c, type: 3}
+      - {fileID: 8300000, guid: 09c9795f3cf327f4297f3705abaca09c, type: 3}
+      - {fileID: 8300000, guid: a16f2a7346661134cbae266ce264186d, type: 3}
+      - {fileID: 8300000, guid: e35fdac5f99a2c9408ce11c04a9b518c, type: 3}
+      - {fileID: 8300000, guid: c36ddb892cdfb584b9cbfeb61a7e60c3, type: 3}
+      hardSteps:
+      - {fileID: 8300000, guid: ae1e4f2aae30ac543b0726b82bff7ab5, type: 3}
+      - {fileID: 8300000, guid: 556a176944a7a4d4284cfd69bfe0f9fe, type: 3}
+      - {fileID: 8300000, guid: 0272c762fade3764cbdd63ebb123f37c, type: 3}
+      - {fileID: 8300000, guid: dfcad3976d91ed4409c1b4457192f46e, type: 3}
+      - {fileID: 8300000, guid: 3653e042d985b044f9786bd38ae48051, type: 3}
+    bareFootSteps:
+      softSteps:
+      - {fileID: 8300000, guid: c8ec25d4ecff55e47960864f13fbfe73, type: 3}
+      - {fileID: 8300000, guid: 8dd2d360e29e3e74a94ec08f6be3e2cc, type: 3}
+      - {fileID: 8300000, guid: 2945d9d11e2784946997eb3bd8a5bb7a, type: 3}
+      - {fileID: 8300000, guid: e45a4cde27efaf54a8ea4d9457889315, type: 3}
+      - {fileID: 8300000, guid: 7e56060bc439a6c4d940a7a5abccd285, type: 3}
+      mediumSteps:
+      - {fileID: 8300000, guid: 32eb3757941e7974dbb80ce38a1162bc, type: 3}
+      - {fileID: 8300000, guid: 6825f50622fcfe147a67b328682bbd49, type: 3}
+      - {fileID: 8300000, guid: 3a5936881d24682408f140a2a7ccc9b3, type: 3}
+      - {fileID: 8300000, guid: 13d9122a5975053458626757cc9db813, type: 3}
+      - {fileID: 8300000, guid: dc8e290178e3e53458616d6caa48862b, type: 3}
+      hardSteps:
+      - {fileID: 8300000, guid: f74ce24fb367f0d468e0b8a3fc30b54f, type: 3}
+      - {fileID: 8300000, guid: 578260890d3ea394eae758e40cbf3da7, type: 3}
+      - {fileID: 8300000, guid: 39a9288ede58728419c8f55d1c5ccb9d, type: 3}
+      - {fileID: 8300000, guid: 09ba8c3aa718ebc4691e49ae689cdddd, type: 3}
+      - {fileID: 8300000, guid: e987fc9da352eec4b946692c9c1b4f6c, type: 3}
+    scuffs: []
+    jumps: []
+    lands: []

@@ -78,10 +78,7 @@ public class ChairInteractable : MonoBehaviour, IInteractable, IHighlightable
 
     public void Unhighlight()
     {
-        if (outline != null)
-        {
-            outline.enabled = false;
-        }
+        // We won't want to remove highlight in the normal fashion by looking away.
     }
 
     #endregion
@@ -109,10 +106,18 @@ public class ChairInteractable : MonoBehaviour, IInteractable, IHighlightable
 
     #endregion
 
+    private void UnhighlightOnSit()
+    {
+        if (outline != null)
+        {
+            outline.enabled = false;
+        }
+    }
+
     private void ExecuteSit()
     {
         hasSatDown = true;
-        Unhighlight();
+        UnhighlightOnSit();
 
         StartCoroutine(SitSequenceRoutine());
     }

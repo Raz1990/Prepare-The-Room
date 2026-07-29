@@ -21,12 +21,6 @@ public class TaskProvider : MonoBehaviour
 
     private bool hasProvided = false;
 
-    // TEMPORARY
-    void Start()
-    {
-        if (!autoProvideOnAllCompleted) ProvideTasks();
-    }
-
     void OnEnable()
     {
         if (autoProvideOnAllCompleted)

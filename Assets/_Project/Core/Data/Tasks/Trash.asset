@@ -13,12 +13,13 @@ MonoBehaviour:
   m_Name: Trash
   m_EditorClassIdentifier: Assembly-CSharp::TaskSO
   taskName: Throw the Trash
+  showInSummary: 1
   steps:
-  - stepDescription: Pick up the Metal Can
+  - stepDescription: Pick up the Soda Can
     actionTypeToComplete: 0
     targetItem: {fileID: 11400000, guid: 8bb6c8a25ee137e4cb880dd32bdd6fb3, type: 2}
-    targetTaskID: 0
-  - stepDescription: Put the Metal Can in the Trash bin
+    targetActionID: 0
+  - stepDescription: Put the Soda Can in the Trash bin
     actionTypeToComplete: 1
     targetItem: {fileID: 11400000, guid: 8bb6c8a25ee137e4cb880dd32bdd6fb3, type: 2}
-    targetTaskID: 0
+    targetActionID: 0
